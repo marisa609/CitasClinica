@@ -29,6 +29,8 @@ public class Paciente {
 		return;
 	}
 	
+	//Creo el método comprobarLetraDni
+	
 	public void comprobarLetraDni () {
 		
 		String numerosDni = dni.substring(0, dni.length()-1);
@@ -39,9 +41,35 @@ public class Paciente {
 		int dividiendo = 23;
 		int restoDivision = conversionNumerosDni % dividiendo;
 		
-		if (restoDivision = 0) 
-				letras = T;
+		char [] letras1 = new char [23];
 		
+		letras1 [0] = 'T';
+		letras1 [1] = 'R';
+		letras1 [2] = 'W';
+		letras1 [3] = 'A';
+		letras1 [4] = 'G';
+		letras1 [5] = 'M';
+		letras1 [6] = 'Y';
+		letras1 [7] = 'F';
+		letras1 [8] = 'P';
+		letras1 [9] = 'D';
+		letras1 [10] = 'X';
+		letras1 [11] = 'B';
+		letras1 [12] = 'N';
+		letras1 [13] = 'J';
+		letras1 [14] = 'Z';
+		letras1 [15] = 'S';
+		letras1 [16] = 'Q';
+		letras1 [17] = 'V';
+		letras1 [18] = 'H';
+		letras1 [19] = 'L';
+		letras1 [20] = 'C';
+		letras1 [21] = 'K';
+		letras1 [22] = 'E';
+		
+		
+		
+	
 			
 			
 		
