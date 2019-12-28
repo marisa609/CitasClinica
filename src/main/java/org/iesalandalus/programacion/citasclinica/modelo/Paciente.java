@@ -1,10 +1,15 @@
 package org.iesalandalus.programacion.citasclinica.modelo;
 
+import java.util.regex.Matcher;
+
+import java.util.regex.Pattern;
+
 public class Paciente {
 	
 	//Declaración
 	
 	String nombre, dni, telefono, eliminarEspacios;
+	
 	
 	// Creo el método formateaNombre
 	
@@ -23,5 +28,30 @@ public class Paciente {
 		
 		return;
 	}
+	
+	public void comprobarLetraDni () {
+		
+		String numerosDni = dni.substring(0, dni.length()-1);
+		  
+		String letras = dni.substring(dni.length()-1);
+	 	
+		int conversionNumerosDni = Integer.parseInt (numerosDni);
+		int dividiendo = 23;
+		int restoDivision = conversionNumerosDni % dividiendo;
+		
+		if (restoDivision = 0) 
+				letras = T;
+		
+			
+			
+		
+		
+		//comprobarLetraDni = 
+		
+		//Pattern pat = Pattern.compile("[0-9]{7,8}[A-Za-z]");
+		
+		//Matcher mat = pat.matcher(dni);
+	}
+	                                  
 
 }
