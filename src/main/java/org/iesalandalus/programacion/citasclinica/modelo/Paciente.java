@@ -6,12 +6,12 @@ import java.util.regex.Pattern;
 
 public class Paciente {
 	
-	//Declaración
+	//1. Declaración
 	
 	String nombre, dni, telefono, eliminarEspacios;
 	
 	
-	// Creo el método formateaNombre
+	//2. Creo el método formateaNombre
 	
 	public void formateaNombre() {
 		for (int x=0; x < nombre.length(); x++) {
@@ -29,9 +29,9 @@ public class Paciente {
 		return;
 	}
 	
-	//Creo el método comprobarLetraDni
+	//3. Creo el método comprobarLetraDni
 	
-	public void comprobarLetraDni () {
+	public String comprobarLetraDni () {
 		
 		String numerosDni = dni.substring(0, dni.length()-1);
 		  
@@ -66,20 +66,51 @@ public class Paciente {
 		letras1 [20] = 'C';
 		letras1 [21] = 'K';
 		letras1 [22] = 'E';
-		
-		
-		
-	
-			
-			
-		
-		
-		//comprobarLetraDni = 
-		
-		//Pattern pat = Pattern.compile("[0-9]{7,8}[A-Za-z]");
-		
-		//Matcher mat = pat.matcher(dni);
 	}
-	                                  
+		
+	//4. Creo los métodos get y set 
+		
+
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public void setNombre(String nombre) {
+			if (nombre =! ) {
+				throw new IllegalArgumentException("ERROR: ");
+			}
+		this.nombre = nombre;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		
+		this.telefono = telefono;
+	}
+	  
+	
+	
+	
+	
+	
+	//comprobarLetraDni = 
+	
+			//Pattern pat = Pattern.compile("[0-9]{7,8}[A-Za-z]");
+			
+			//Matcher mat = pat.matcher(dni);
 
 }
+	
+	
+	
