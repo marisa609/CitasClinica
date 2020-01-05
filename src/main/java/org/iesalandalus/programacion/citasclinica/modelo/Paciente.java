@@ -9,6 +9,7 @@ public class Paciente {
 	//1. Declaración
 	
 	String nombre, dni, telefono, eliminarEspacios;
+	private static final String ER_TELEFONO = "^[69][0-9]{8}$";
 	
 	
 	//2. Creo el método formateaNombre
@@ -70,23 +71,31 @@ public class Paciente {
 		
 	//4. Creo los métodos get y set 
 		
-
 	public String getNombre() {
 		return nombre;
 	}
 	
-	public void setNombre(String nombre) {
-			if (nombre =! ) {
-				throw new IllegalArgumentException("ERROR: ");
-			}
+	public void setNombre(String dni) {
+		if (nombre == null) {
+			throw new IllegalArgumentException ("El nombre de un paciente no puede ser nulo.");
+		}
+		if(nombre.equals("")) {
+			throw new IllegalArgumentException ("El nombre de un paciente no puede estar vacío.");
+		}
 		this.nombre = nombre;
 	}
-
+	
 	public String getDni() {
 		return dni;
 	}
 
 	public void setDni(String dni) {
+		if (dni == null) {
+			throw new IllegalArgumentException ("El dni de un paciente no puede ser nulo.");
+		}
+		if (dni.contentEquals("")) {
+			throw new IllegalArgumentException ("El dni de un paciente no puede estar vacío.");
+		}
 		this.dni = dni;
 	}
 
@@ -94,9 +103,17 @@ public class Paciente {
 		return telefono;
 	}
 
-	public void setTelefono(String telefono) {
-		
-		this.telefono = telefono;
+	public void setTelefono(String telefono) throws IllegalArgumentException {
+		if(telefono==null) {
+			this.telefono = null;
+		} else {
+			Pattern p = Pattern.compile(ER_TELEFONO);
+			Matcher m = p.matcher(telefono);
+			if(m.matches())
+				this.telefono = telefono;
+			else
+				throw new IllegalArgumentException("El teléfono del profesor no es válido.");
+		}
 	}
 	  
 	
