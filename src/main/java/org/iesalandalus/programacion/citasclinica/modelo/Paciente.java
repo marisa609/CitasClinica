@@ -4,12 +4,14 @@ import java.util.regex.Matcher;
 
 import java.util.regex.Pattern;
 
+import org.iesalandalus.programacion.peonajedrez.Posicion;
+
 public class Paciente {
 	
 	//1. Declaración
 	
 	String nombre, dni, telefono, eliminarEspacios;
-	private static final String ER_TELEFONO = "^[69][0-9]{8}$";
+	private static final String ER_TELEFONO = "^[679][0-9]{8}$";
 	
 	
 	//2. Creo el método formateaNombre
@@ -116,9 +118,23 @@ public class Paciente {
 		}
 	}
 	  
+	// 5. Constructor con parámetros
 	
+	public Paciente (String nombre, String dni, String telefono) {
+		setNombre(nombre);
+		setDni(dni);
+		setTelefono(telefono);
+	}
 	
+	// 6.Constructor copia
 	
+	public Paciente(Paciente e) {
+		if(e == null)
+			throw new NullPointerException("ERROR: No es posible copiar un paciente nulo.");
+		setNombre(e.getNombre());
+		setDni(e.getDni());
+		setTelefono(e.getTelefono());
+	}
 	
 	
 	//comprobarLetraDni = 
