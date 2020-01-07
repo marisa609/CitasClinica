@@ -12,6 +12,7 @@ public class Paciente {
 	
 	String nombre, dni, telefono, eliminarEspacios;
 	private static final String ER_TELEFONO = "^[679][0-9]{8}$";
+	private final static String ER_DNI = "([0-9]{8}[a-zA-Z])|([XxYyZz][0-9]{7}[a-zA-Z])";
 	
 	
 	//2. Creo el método formateaNombre
@@ -98,6 +99,14 @@ public class Paciente {
 		if (dni.contentEquals("")) {
 			throw new IllegalArgumentException ("El dni de un paciente no puede estar vacío.");
 		}
+		Pattern p = Pattern.compile(ER_DNI);
+		Matcher m = p.matcher(dni);
+		if (m.matches()) {
+			this.dni = dni;
+		}else {
+			throw new IllegalArgumentException("El correo del paciente no es válido.");
+		}
+		
 		this.dni = dni;
 	}
 
@@ -114,7 +123,7 @@ public class Paciente {
 			if(m.matches())
 				this.telefono = telefono;
 			else
-				throw new IllegalArgumentException("El teléfono del profesor no es válido.");
+				throw new IllegalArgumentException("El teléfono del paciente no es válido.");
 		}
 	}
 	  
@@ -129,12 +138,47 @@ public class Paciente {
 	// 6.Constructor copia
 	
 	public Paciente(Paciente e) {
-		if(e == null)
+		if(e == null) {
 			throw new NullPointerException("ERROR: No es posible copiar un paciente nulo.");
+		}
+		
 		setNombre(e.getNombre());
 		setDni(e.getDni());
 		setTelefono(e.getTelefono());
 	}
+	
+	// 7.Métodos equals y hashCode
+	
+	// Método equals
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (!(obj instanceof Paciente))
+				return false;
+
+			Paciente other = (Paciente) obj;
+
+			if (other.nombre != nombre || other.dni != dni || other.telefono != telefono)
+				return false;
+
+			return true;
+		}
+	
+	// Método hashCode
+		
+		@Override
+		public int hashCode() {
+			String letra = Validaciones.obtenerLetraDni(dni);
+			char letraDni = (letra.length() > 0) ? letra.charAt(0) : 0;
+			return Validaciones.obtenerDigitosDni(dni) + ((int) letraDni) * 10000000;
+		}
+	
+	
+	
 	
 	
 	//comprobarLetraDni = 
