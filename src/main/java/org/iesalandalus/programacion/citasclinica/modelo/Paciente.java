@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.citasclinica.modelo;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 
 import java.util.regex.Pattern;
@@ -157,26 +158,22 @@ public class Paciente {
 				return true;
 			if (obj == null)
 				return false;
-			if (!(obj instanceof Paciente))
+			if (getClass() != obj.getClass())
 				return false;
-
 			Paciente other = (Paciente) obj;
-
-			if (other.nombre != nombre || other.dni != dni || other.telefono != telefono)
+			if (dni == null) {
+				if (other.dni != null)
+					return false;
+			} else if (!dni.equals(other.dni))
 				return false;
-
 			return true;
 		}
 	
 	// Método hashCode
 		
-		@Override
 		public int hashCode() {
-			String letra = Validaciones.obtenerLetraDni(dni);
-			char letraDni = (letra.length() > 0) ? letra.charAt(0) : 0;
-			return Validaciones.obtenerDigitosDni(dni) + ((int) letraDni) * 10000000;
+			return Objects.hash(nombre, dni, telefono);
 		}
-	
 	
 	
 	
