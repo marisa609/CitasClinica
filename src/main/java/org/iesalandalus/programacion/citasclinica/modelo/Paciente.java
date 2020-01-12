@@ -18,7 +18,7 @@ public class Paciente {
 	
 	//2. Creo el método formateaNombre
 	
-	public void formateaNombre() {
+	private String formateaNombre (String nombre) {
 		for (int x=0; x < nombre.length(); x++) {
 			  if (nombre.charAt(x) != ' ')
 			    eliminarEspacios += nombre.charAt(x);
@@ -31,12 +31,12 @@ public class Paciente {
 		
 		restoMinuscula = nombre;
 		
-		return;
+		return nombre.toString().trim();
 	}
 	
 	//3. Creo el método comprobarLetraDni
 	
-	public String comprobarLetraDni () {
+	private boolean comprobarLetraDni (String dni) {
 		
 		String numerosDni = dni.substring(0, dni.length()-1);
 		  
@@ -71,7 +71,10 @@ public class Paciente {
 		letras1 [20] = 'C';
 		letras1 [21] = 'K';
 		letras1 [22] = 'E';
+		
 	}
+	
+		
 		
 	//4. Creo los métodos get y set 
 		
@@ -93,7 +96,7 @@ public class Paciente {
 		return dni;
 	}
 
-	public void setDni(String dni) {
+	private void setDni(String dni) {
 		if (dni == null) {
 			throw new IllegalArgumentException ("El dni de un paciente no puede ser nulo.");
 		}
@@ -174,7 +177,32 @@ public class Paciente {
 		public int hashCode() {
 			return Objects.hash(nombre, dni, telefono);
 		}
+		
+	//8. Método getIniciales
+		
+		private String getIniciales() {
+
+			StringBuilder stb = new StringBuilder();
+
+			Pattern p = Pattern.compile("([A-Z]*)");
+			Matcher m = p.matcher(nombre);
+
+			while (m.find()) {
+				String inicial = m.group(1);
+				stb.append(inicial);
+			}
+
+			return stb.toString();
+		
+		}
+
 	
+	// 9. Método toString
+		
+		@Override
+		public String toString() {
+			return "Paciente [nombre=" + nombre + ", dni=" + dni + ", telefono=" + telefono + "]" + getIniciales();
+		}
 	
 	
 	
