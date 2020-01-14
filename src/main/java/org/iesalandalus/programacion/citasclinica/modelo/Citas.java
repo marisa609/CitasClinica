@@ -1,6 +1,8 @@
 package org.iesalandalus.programacion.citasclinica.modelo;
 
 import javax.naming.OperationNotSupportedException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Citas {
 	
@@ -28,6 +30,16 @@ public class Citas {
 	private boolean capacidadSuperada(int numCitas) {
 		return false;
 	}
+	
+	// Contructores
+		public Citas(int numCitas) {
+			if (numCitas <= 0) {
+				throw new NullPointerException("ERROR: La capacidad debe ser mayor que cero.");
+			}
+
+			capacidad = numCitas;
+			coleccionCitas = new Cita[capacidad];
+		}
 	
 	// 4. Método buscarIndice
 	
@@ -101,5 +113,47 @@ public class Citas {
 		coleccionCitas[getCapacidad() - 1] = null;
 	}
 	
-	// 8. Método buscar
+	// 8. Método borrar
+	
+	public void borrar(Cita cita) {
+		if (cita == null) {
+			throw new IllegalArgumentException("ERROR: No se puede borrar una cita nula.");
+		}
+
+		int indiceCitaBuscada = buscarIndice(cita);
+
+		if (indiceCitaBuscada == getTamano() + 1) {
+			throw new NullPointerException("ERROR: No existe ninguna cita para esa fecha y hora.");
+		}
+
+		desplazarUnaPosicionHaciaIzquierda(indiceCitaBuscada);
+		tamano--;
+	}
+	
+	// 9. Método getCitas
+	
+	public Cita[] getCitas() {
+		return coleccionCitas;
+	}
+	
+	public Cita[] getCitas(LocalDate fecha) {
+		if (fecha == null) {
+			throw new NullPointerException( "ERROR: No se pueden devolver las citas para un día nulo.");
+		}
+
+		Cita[] citasEncontradas = new Cita[getCapacidad()];
+		int posCita = 0;
+
+		String fechabuscada = fecha.format(DateTimeFormatter.ofPattern(Validaciones.FORMATO_FECHA));
+
+		for (int i = 0; i < tamano; i++) {
+			String fechaColeccion = coleccionCitas[i].getFechaHora().format(DateTimeFormatter.ofPattern(Validaciones.FORMATO_FECHA));
+			if (fechaColeccion.equals(fechabuscada)) {
+				citasEncontradas[posCita] = coleccionCitas[i];
+				posCita++;
+			}
+		}
+
+		return citasEncontradas;
+	}
 }
