@@ -1,5 +1,9 @@
 package org.iesalandalus.programacion.citasclinica.vista;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.iesalandalus.programacion.citasclinica.modelo.Cita;
 import org.iesalandalus.programacion.citasclinica.modelo.Paciente;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
@@ -79,7 +83,34 @@ public class Consola {
 			return paciente;
 		}
 		
-	// 4. Método leerFechaHora
+	// 5. Método leerFechaHora
 			
+		public static LocalDateTime leerFechaHora() {
+			LocalDateTime fechaHoraFormat = null;
+
+			String fechaHora;
+			boolean success = false;
+
+			System.out.println("----------------------------------------------------");
+			System.out.println("                   GESTION DE CITAS                 ");
+			System.out.println("----------------------------------------------------");
+			System.out.println("                    DATOS DE LA CITA                ");
+			System.out.println("----------------------------------------------------");
+
+			do {
+				System.out.println("Introduzca la fecha y la hora: ");
+				fechaHora = Entrada.cadena();
+
+				try {
+					fechaHoraFormat = LocalDateTime.parse(fechaHora, DateTimeFormatter.ofPattern(Cita.FORMATO_FECHA_HORA));
+					success = true;
+				} catch (Exception ex) {
+					System.out.println("La fecha introducida no es váida. Indique la fecha en un formato válido " + Cita.FORMATO_FECHA_HORA);
+				}
+			} while (!success);
+
+			return fechaHoraFormat;
+			}
 		
+	// 6. Método leerCita
 }
