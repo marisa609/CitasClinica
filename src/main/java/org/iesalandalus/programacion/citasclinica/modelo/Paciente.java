@@ -100,8 +100,8 @@ public class Paciente {
 		if (!telefono.matches(ER_TELEFONO)) {
 			throw new IllegalArgumentException("ERROR: El teléfono no tiene un formato válido.");
 		}
-			this.telefono = telefono;
-		}
+		this.telefono = telefono;
+	}
 
 	// 5. Constructor con parámetros
 

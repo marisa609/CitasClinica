@@ -28,11 +28,11 @@ public class Citas {
 	}
 
 	private boolean capacidadSuperada(int numCitas) {
-		return numCitas >=capacidad;
+		return numCitas >= capacidad;
 	}
 
 	// Contructores
-	
+
 	public Citas(int capacidad) {
 		if (capacidad <= 0) {
 			throw new NullPointerException("ERROR: La capacidad debe ser mayor que cero.");
