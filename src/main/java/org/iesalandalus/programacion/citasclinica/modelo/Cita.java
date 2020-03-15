@@ -17,7 +17,7 @@ public class Cita {
 		return fechaHora;
 	}
 
-	public void setFechaHora(LocalDateTime fechaHora) {
+	private void setFechaHora(LocalDateTime fechaHora) {
 		if (fechaHora == null) {
 			throw new NullPointerException("ERROR: La fecha y hora de una cita no puede ser nula.");
 		}
@@ -32,7 +32,7 @@ public class Cita {
 		if (paciente == null) {
 			throw new NullPointerException("ERROR: El paciente de una cita no puede ser nulo.");
 		}
-		this.paciente = paciente;
+		this.paciente = new Paciente(paciente);
 	}
 
 	// 3. Contructor con parámetros

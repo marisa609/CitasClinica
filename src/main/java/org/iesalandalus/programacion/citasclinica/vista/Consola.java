@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.iesalandalus.programacion.citasclinica.modelo.Cita;
 import org.iesalandalus.programacion.citasclinica.modelo.Paciente;
+import org.iesalandalus.programacion.utilidades.Comprobaciones;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class Consola {
@@ -124,7 +125,7 @@ public class Consola {
 	
 	// 7. Método leerFecha
 		
-		public static LocalDateTime leerFecha() {
+		public static LocalDate leerFecha() {
 			LocalDate fechaFormat = null;
 
 			String fecha;
@@ -135,10 +136,10 @@ public class Consola {
 				fecha = Entrada.cadena();
 
 				try {
-					fechaFormat = LocalDate.parse(fecha, DateTimeFormatter.ofPattern(Validaciones.FORMATO_FECHA));
+					fechaFormat = LocalDate.parse(fecha, DateTimeFormatter.ofPattern(Comprobaciones.FORMATO_FECHA));
 					success = true;
 				} catch (Exception ex) {
-					System.out.println("La fecha introducida no es v�lida. Indique la fecha en formato " + Validaciones.FORMATO_FECHA);
+					System.out.println("La fecha introducida no es v�lida. Indique la fecha en formato " + Comprobaciones.FORMATO_FECHA);
 				}
 			} while (!success);
 

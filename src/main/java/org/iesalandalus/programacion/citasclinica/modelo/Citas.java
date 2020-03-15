@@ -24,21 +24,22 @@ public class Citas {
 	// 3. Métodos capacidadSuperada y tamanoSuperado
 
 	private boolean tamanoSuperado(int tamanoActual) {
-		return tamanoActual == getCapacidad();
+		return tamanoActual == getTamano();
 	}
 
 	private boolean capacidadSuperada(int numCitas) {
-		return false;
+		return numCitas >=capacidad;
 	}
 
 	// Contructores
-	public Citas(int numCitas) {
-		if (numCitas <= 0) {
+	
+	public Citas(int capacidad) {
+		if (capacidad <= 0) {
 			throw new NullPointerException("ERROR: La capacidad debe ser mayor que cero.");
 		}
-
-		capacidad = numCitas;
 		coleccionCitas = new Cita[capacidad];
+		this.capacidad = capacidad;
+		tamano = 0;
 	}
 
 	// 4. Método buscarIndice
@@ -116,13 +117,13 @@ public class Citas {
 
 	public void borrar(Cita cita) {
 		if (cita == null) {
-			throw new IllegalArgumentException("ERROR: No se puede borrar una cita nula.");
+			throw new NullPointerException("ERROR: No se puede borrar una cita nula.");
 		}
 
 		int indiceCitaBuscada = buscarIndice(cita);
 
 		if (indiceCitaBuscada == getTamano() + 1) {
-			throw new NullPointerException("ERROR: No existe ninguna cita para esa fecha y hora.");
+			throw new IllegalArgumentException("ERROR: No existe ninguna cita para esa fecha y hora.");
 		}
 
 		desplazarUnaPosicionHaciaIzquierda(indiceCitaBuscada);
@@ -143,14 +144,9 @@ public class Citas {
 		Cita[] citasEncontradas = new Cita[getCapacidad()];
 		int posCita = 0;
 
-		String fechabuscada = fecha.format(DateTimeFormatter.ofPattern(Validaciones.FORMATO_FECHA_HORA));
-
-		for (int i = 0; i < tamano; i++) {
-			String fechaColeccion = coleccionCitas[i].getFechaHora()
-					.format(DateTimeFormatter.ofPattern(Validaciones.FORMATO_FECHA_HORA));
-			if (fechaColeccion.equals(fechabuscada)) {
-				citasEncontradas[posCita] = coleccionCitas[i];
-				posCita++;
+		for (int i = 0; !tamanoSuperado(i); i++) {
+			if (coleccionCitas[i].getFechaHora().toLocalDate().equals(fecha)) {
+				citasEncontradas[posCita++] = coleccionCitas[i];
 			}
 		}
 
