@@ -18,7 +18,7 @@ public class Consola {
 		
 	// 2. método mostrarMenu
 		
-		private static void mostrarMenu() {
+		public static void mostrarMenu() {
 			System.out.println("----------------------------------------------------");
 			System.out.println("                   GESTION DE CITAS                 ");
 			System.out.println("----------------------------------------------------");
@@ -94,7 +94,7 @@ public class Consola {
 			boolean success = false;
 
 			System.out.println("----------------------------------------------------");
-			System.out.println("                   GESTION DE CITAS                 ");
+			System.out.println("                    GESTION DE CITAS                ");
 			System.out.println("----------------------------------------------------");
 			System.out.println("                    DATOS DE LA CITA                ");
 			System.out.println("----------------------------------------------------");
@@ -139,7 +139,7 @@ public class Consola {
 					fechaFormat = LocalDate.parse(fecha, DateTimeFormatter.ofPattern(Comprobaciones.FORMATO_FECHA));
 					success = true;
 				} catch (Exception ex) {
-					System.out.println("La fecha introducida no es v�lida. Indique la fecha en formato " + Comprobaciones.FORMATO_FECHA);
+					System.out.println("La fecha introducida no es válida. Indique la fecha en formato " + Comprobaciones.FORMATO_FECHA);
 				}
 			} while (!success);
 
