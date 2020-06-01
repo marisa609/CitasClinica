@@ -64,20 +64,6 @@ public class Citas {
 
 	}
 
-	/*
-	 * private int buscarIndice(Cita cita) { if (cita == null) { throw new
-	 * NullPointerException("ERROR: No se puede copiar una cita nula."); }
-	 * 
-	 * int indiceCitaEncontrada = -1;
-	 * 
-	 * for (int i = 0; i < coleccionCitas.length && coleccionCitas[i] != null &&
-	 * indiceCitaEncontrada < 0; i++) { if (coleccionCitas[i].getFechaHora() ==
-	 * cita.getFechaHora()) { indiceCitaEncontrada = i; } }
-	 * 
-	 * return (indiceCitaEncontrada >= 0) ? indiceCitaEncontrada : getTamano() + 1;
-	 * }
-	 */
-
 	// 5. Método insertar
 
 	public void insertar(Cita cita) throws OperationNotSupportedException {
