@@ -11,7 +11,7 @@ public class Paciente {
 	// 1. Declaración
 
 	String nombre, dni, telefono, eliminarEspacios;
-	private static final String ER_NOMBRE = "[A-Za-záéíóúÁÉÍÓÚ]+(\\s+[A-Za-záéíóúÁÉÍÓÚ]+)+";
+	private static final String ER_NOMBRE = "([a-zA-ZÁÉÍÓÚáéíóú]+)(\\s+([a-zA-ZÁÉÍÓÚáéíóú]+))+";
 	private static final String ER_TELEFONO = "^[679][0-9]{8}$";
 	private final static String ER_DNI = "([0-9]{8})([a-zA-Z])";
 
@@ -52,15 +52,11 @@ public class Paciente {
 	}
 
 	public void setNombre(String nombre) {
-		if (nombre == null) {
+
+		if (nombre == null || nombre.trim().isEmpty()) {
 			throw new NullPointerException("ERROR: El nombre de un paciente no puede ser nulo o vacío.");
 		}
-		if (nombre.trim().equals("")) {
-			throw new IllegalArgumentException("El nombre de un paciente no puede estar vacío.");
-		}
-		if (!nombre.matches(ER_NOMBRE)) {
-			throw new IllegalArgumentException("ERROR: El nombre no tiene un formato válido.");
-		}
+		
 		this.nombre = formateaNombre(nombre);
 	}
 
@@ -69,34 +65,28 @@ public class Paciente {
 	}
 
 	private void setDni(String dni) {
-		if (dni == null) {
+		if (dni == null || dni.trim().isEmpty()) {
 			throw new NullPointerException("ERROR: El DNI de un paciente no puede ser nulo o vacío.");
-		}
-		if (dni.contentEquals("")) {
-			throw new IllegalArgumentException("ERROR: El DNI no tiene un formato válido.");
 		}
 		if (!dni.matches(ER_DNI)) {
 			throw new IllegalArgumentException("ERROR: El DNI no tiene un formato válido.");
 		}
-		if (!comprobarLetraDni(dni)) {
-			throw new IllegalArgumentException("ERROR: El DNI no tiene un formato válido.");
+		if (comprobarLetraDni(dni) == false) {
+			throw new IllegalArgumentException("ERROR: La letra del DNI no es correcta.");
 		}
-		if (comprobarLetraDni(dni)) {
-			this.dni = dni;
-		}
+
+		this.dni = dni;
 	}
 
 	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(String telefono) throws IllegalArgumentException {
-		if (telefono == null) {
+	public void setTelefono(String telefono) {
+		if (telefono == null || telefono.trim().isEmpty()) {
 			throw new NullPointerException("ERROR: El teléfono de un paciente no puede ser nulo o vacío.");
 		}
-		if (telefono.contentEquals("")) {
-			throw new IllegalArgumentException("ERROR: El DNI no tiene un formato válido.");
-		}
+
 		if (!telefono.matches(ER_TELEFONO)) {
 			throw new IllegalArgumentException("ERROR: El teléfono no tiene un formato válido.");
 		}

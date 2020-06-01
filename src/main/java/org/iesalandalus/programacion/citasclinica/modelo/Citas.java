@@ -24,7 +24,7 @@ public class Citas {
 	// 3. Métodos capacidadSuperada y tamanoSuperado
 
 	private boolean tamanoSuperado(int tamanoActual) {
-		return tamanoActual == getTamano();
+		return tamanoActual >= getTamano();
 	}
 
 	private boolean capacidadSuperada(int numCitas) {
@@ -35,7 +35,7 @@ public class Citas {
 
 	public Citas(int capacidad) {
 		if (capacidad <= 0) {
-			throw new NullPointerException("ERROR: La capacidad debe ser mayor que cero.");
+			throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
 		}
 		coleccionCitas = new Cita[capacidad];
 		this.capacidad = capacidad;
@@ -45,29 +45,49 @@ public class Citas {
 	// 4. Método buscarIndice
 
 	private int buscarIndice(Cita cita) {
+
 		if (cita == null) {
 			throw new NullPointerException("ERROR: No se puede copiar una cita nula.");
 		}
 
-		int indiceCitaEncontrada = -1;
+		int indice = 0;
+		boolean citaEncontrada = false;
 
-		for (int i = 0; i < coleccionCitas.length && coleccionCitas[i] != null && indiceCitaEncontrada < 0; i++) {
-			if (coleccionCitas[i].getFechaHora() == cita.getFechaHora()) {
-				indiceCitaEncontrada = i;
+		while (!tamanoSuperado(indice) && !citaEncontrada) {
+			if (coleccionCitas[indice].equals(cita)) {
+				citaEncontrada = true;
+			} else {
+				indice++;
 			}
 		}
+		return indice;
 
-		return (indiceCitaEncontrada >= 0) ? indiceCitaEncontrada : getTamano() + 1;
 	}
+
+	/*
+	 * private int buscarIndice(Cita cita) { if (cita == null) { throw new
+	 * NullPointerException("ERROR: No se puede copiar una cita nula."); }
+	 * 
+	 * int indiceCitaEncontrada = -1;
+	 * 
+	 * for (int i = 0; i < coleccionCitas.length && coleccionCitas[i] != null &&
+	 * indiceCitaEncontrada < 0; i++) { if (coleccionCitas[i].getFechaHora() ==
+	 * cita.getFechaHora()) { indiceCitaEncontrada = i; } }
+	 * 
+	 * return (indiceCitaEncontrada >= 0) ? indiceCitaEncontrada : getTamano() + 1;
+	 * }
+	 */
 
 	// 5. Método insertar
 
 	public void insertar(Cita cita) throws OperationNotSupportedException {
 		if (cita == null) {
-			throw new OperationNotSupportedException("ERROR: No se puede insertar una cita nula.");
+			throw new NullPointerException("ERROR: No se puede insertar una cita nula.");
 		}
 
-		if (!tamanoSuperado(getTamano())) {
+		int indice = buscarIndice(cita);
+
+		if (capacidadSuperada(indice)) {
 			throw new OperationNotSupportedException("ERROR: No se aceptan más citas.");
 		}
 
@@ -75,7 +95,7 @@ public class Citas {
 			throw new OperationNotSupportedException("ERROR: Ya existe una cita para esa fecha y hora.");
 		}
 
-		coleccionCitas[getTamano()] = cita;
+		coleccionCitas[getTamano()] = new Cita(cita);
 		tamano++;
 	}
 
@@ -99,7 +119,7 @@ public class Citas {
 
 	// 7. Método desplazarUnaPosicionHaciaIzquierda
 
-	private void desplazarUnaPosicionHaciaIzquierda(int indiceCita) {
+	private void desplazarUnaPosicionHaciaIzquierda(int indiceCita) throws IllegalArgumentException {
 		if (indiceCita < 0 || indiceCita >= getCapacidad()) {
 			throw new IllegalArgumentException("El índice de la cita debe estar comprendido en el intervalo correcto");
 		}
@@ -115,19 +135,21 @@ public class Citas {
 
 	// 8. Método borrar
 
-	public void borrar(Cita cita) {
+	public void borrar(Cita cita) throws OperationNotSupportedException {
 		if (cita == null) {
-			throw new NullPointerException("ERROR: No se puede borrar una cita nula.");
+			throw new IllegalArgumentException("ERROR: No se puede borrar una cita nula.");
 		}
 
-		int indiceCitaBuscada = buscarIndice(cita);
+		int indice = buscarIndice(cita);
 
-		if (indiceCitaBuscada == getTamano() + 1) {
-			throw new IllegalArgumentException("ERROR: No existe ninguna cita para esa fecha y hora.");
+		if (!tamanoSuperado(indice)) {
+			desplazarUnaPosicionHaciaIzquierda(indice);
+		} else {
+			throw new OperationNotSupportedException("ERROR: No existe ninguna cita para esa fecha y hora.");
 		}
 
-		desplazarUnaPosicionHaciaIzquierda(indiceCitaBuscada);
 		tamano--;
+
 	}
 
 	// 9. Método getCitas

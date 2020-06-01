@@ -7,7 +7,7 @@ public class Cita {
 
 	// 1. Atributos
 
-	public final static String FORMATO_FECHA_HORA = "dd/MM/yyyy hh:mm";
+	public final static String FORMATO_FECHA_HORA = "dd/MM/yyyy HH:mm";
 	private LocalDateTime fechaHora;
 	private Paciente paciente;
 

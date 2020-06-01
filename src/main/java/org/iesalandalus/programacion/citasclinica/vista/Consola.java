@@ -64,6 +64,7 @@ public class Consola {
 		String nombre;
 		String telefono;
 		Paciente paciente = null;
+		boolean error;
 
 		System.out.println("----------------------------------------------------");
 		System.out.println("                   GESTION DE CITAS                 ");
@@ -71,16 +72,26 @@ public class Consola {
 		System.out.println("                    DATOS PACIENTE                  ");
 		System.out.println("----------------------------------------------------");
 
-		System.out.println("Introduzca el DNI: ");
-		dni = Entrada.cadena();
+		do {
+			error = false;
 
-		System.out.println("Introduzca el Nombre: ");
-		nombre = Entrada.cadena();
+			System.out.println("Introduzca el DNI: ");
+			dni = Entrada.cadena();
 
-		System.out.println("Introduzca el Teléfono: ");
-		telefono = Entrada.cadena();
+			System.out.println("Introduzca el Nombre: ");
+			nombre = Entrada.cadena();
 
-		paciente = new Paciente(nombre, dni, telefono);
+			System.out.println("Introduzca el Teléfono: ");
+			telefono = Entrada.cadena();
+
+			try {
+				paciente = new Paciente(nombre, dni, telefono);
+			} catch (NullPointerException | IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+				error = true;
+			}
+
+		} while (error);
 
 		return paciente;
 	}
@@ -101,10 +112,10 @@ public class Consola {
 
 		do {
 			System.out.println("Introduzca la fecha y la hora: ");
-			fechaHora = Entrada.cadena();
 
 			try {
-				fechaHoraFormat = LocalDateTime.parse(fechaHora, DateTimeFormatter.ofPattern(Cita.FORMATO_FECHA_HORA));
+				fechaHoraFormat = LocalDateTime.parse(Entrada.cadena(),
+						DateTimeFormatter.ofPattern(Cita.FORMATO_FECHA_HORA));
 				success = true;
 			} catch (Exception ex) {
 				System.out.println("La fecha introducida no es váida. Indique la fecha en un formato válido "
@@ -118,8 +129,8 @@ public class Consola {
 	// 6. Método leerCita
 
 	public static Cita leerCita() {
-		Paciente paciente = leerPaciente();
-		LocalDateTime fechaHora = leerFechaHora();
+		Paciente paciente = Consola.leerPaciente();
+		LocalDateTime fechaHora = Consola.leerFechaHora();
 
 		return new Cita(paciente, fechaHora);
 	}

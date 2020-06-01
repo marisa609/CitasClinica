@@ -100,7 +100,7 @@ public class MainApp {
 	private static void borrarCita() throws OperationNotSupportedException {
 
 		LocalDateTime fechaHora = Consola.leerFechaHora();
-		Paciente paciente = new Paciente("pacienteX", "77160362P", "612345678");
+		Paciente paciente = new Paciente("paciente paciente", "77160362P", "612345678");
 		Cita cita = new Cita(paciente, fechaHora);
 
 		try {
@@ -110,6 +110,7 @@ public class MainApp {
 			ejecutarOpcion(Consola.elegirOpcion());
 		} catch (Exception ex) {
 			System.out.println("Se ha producido el siguiente error: " + ex.getMessage());
+			ejecutarOpcion(Consola.elegirOpcion());
 		}
 	}
 
